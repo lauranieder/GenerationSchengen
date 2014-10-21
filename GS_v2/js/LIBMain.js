@@ -58,6 +58,46 @@ window.onload = function()
 
     //C'est ici que l'on placera tout le code servant à nos dessins.
     
-    context.fillStyle = "#FF0000";
+    
+    function drawImage(imageObj) {
+        
+        var imageX = 0;
+        var imageY = 0;
+        /*var imageWidth = imageObj.width;
+        var imageHeight = imageObj.height;*/
+        
+       
+        context.drawImage(imageObj, imageX, imageY);
+    }
+    
+    var imageObj = new Image();
+      imageObj.onload = function() {
+        drawImage(this);
+        drawOverlay();
+      };
+      imageObj.src = 'data/preview-DSCF3937.jpg';
+    
+   /* base_image = new Image();
+    base_image.src = 'data/preview-DSCF3937.jpg';
+    base_image.onload = function(){
+        context.drawImage(base_image, 0,0);
+        
+        
+        
+        
+    }*/
+    
+    function  drawOverlay(){
+        context.fillStyle = "#FF0000";
     context.fillRect(0,0,150,75);
+    
+    context.fillStyle = "#000000";
+    context.font = "30px Arial";
+    context.fillText("Un périphérique, les zones industrielles se succèdent. Puis un paysage plus urbain apparaît.",60,60);
+        
+    }
+    
+    
+    
+    
 }
