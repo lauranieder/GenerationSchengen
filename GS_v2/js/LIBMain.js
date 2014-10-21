@@ -38,7 +38,6 @@ LIB.prototype.draw = function() {
 // --------------- OneContent
 // --------------- At the end the main Init...
 MainInit();
-
 window.onload = function()
 {
     var canvas = document.getElementById('mon_canvas');
