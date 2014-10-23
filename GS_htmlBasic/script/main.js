@@ -44,8 +44,8 @@ docReady( function() {
     var container = document.querySelector('#container');
     var msnry = new Masonry( container, {
       // options
-      columnWidth: 200,
-      itemSelector: '.item',
+        columnWidth: '.gridsizer', //200
+        itemSelector: '.item',
         gutter: '.guttersizer',
         isOriginLeft: true,
         stamp: '.stamp'

@@ -97,17 +97,18 @@ img {
 
 /*GRID*/
 
-.item { width: 25%; margin-bottom: 10px; border: 4pt solid black; }
-.item.w2 { width: 50%; }
-.item.w4 { width: 100%; }
+.gridsizer { width: 24.5%; } /*24.5*/
+.item { width: 24%; margin-bottom: 10px; border: 0pt solid black; } /*24*/
+.item.w2 { width: 49.1%; } /*49.1*/
+.item.w4 { width: 99%; } /*99*/
 
 /*Space between elements*/
-.guttersizer { height:10px;width: 0px; }
+.guttersizer { height:10px;width: 0.5%; } /*0.5*/
 
 .stamp {
   position: absolute;
   background: orange;
-  border: 4px dotted black;
+  border: 0px dotted black;
     margin-bottom: 10px;
 }
 
@@ -123,4 +124,9 @@ position: relative;
   top: 120px;
   width: 100%;
   /*height: 500px;*/
+}
+
+@media screen and (min-width: 720px) {
+  /* 10 columns for larger screens */
+  .grid-sizer { width: 10%; }
 }
