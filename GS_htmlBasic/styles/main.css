@@ -1,0 +1,126 @@
+html {
+    background-color: #ffffff;
+    font-size: 24px;
+    -webkit-font-smoothing: antialiased;
+}
+
+@font-face{
+    font-family: Graphik;
+    src: url(../data/font/Graphik/Graphik-Medium.otf);
+    
+    
+    
+}
+
+body {
+    margin: 0 auto;
+   margin:0;
+    font-family: Graphik;
+    font-size: 24px;
+    /*padding: 2.5em 2.5em 2.5em;*/
+
+    line-height: 1.2em;
+    color: #000000;
+    background-color: #ffffff;
+    
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: #222;
+    font-weight: 600;
+    
+    
+}
+
+h1{
+  /*font-size: 135px;*/
+    font-size: 5.625em;
+    line-height: 0.89em;
+    margin:0;
+}
+
+
+h2 {
+    margin:0;
+    font-size: 2em;
+    line-height: 1.2em;
+    margin:0;
+    /*margin-top: 1.3em;*/
+}
+
+h3 {
+    margin:0;
+    font-size: 1em;
+    line-height: 1.2em;
+    margin:0;
+    /*margin-top: 1.3em;*/
+}
+
+h4 {
+    margin:0;
+    font-size: 0.5em;
+    line-height: 1.2em;
+    margin:0;
+    /*margin-top: 1.3em;*/
+}
+
+a {
+    color: #000000;
+    text-decoration: none;
+    
+}
+
+a:hover {
+    color: #000000;
+    border-top: 0.2em solid black;
+    text-decoration: none;
+    
+}
+
+b, strong {
+    font-weight: 600;
+}
+
+samp {
+    display: none;
+}
+
+img {
+    
+    background: transparent;
+   
+    
+    display: block;
+    /*margin: 1.3em auto;*/
+    max-width: 100%;
+}
+
+/*GRID*/
+
+.item { width: 25%; margin-bottom: 10px; border: 4pt solid black; }
+.item.w2 { width: 50%; }
+.item.w4 { width: 100%; }
+
+/*Space between elements*/
+.guttersizer { height:10px;width: 0px; }
+
+.stamp {
+  position: absolute;
+  background: orange;
+  border: 4px dotted black;
+    margin-bottom: 10px;
+}
+
+.stamp1 {
+  left: 0px;
+  top: 0px;
+  width: 100%;
+  /*height: 100px;*/
+}
+.stamp2 {
+position: relative;
+  left: 0px;
+  top: 120px;
+  width: 100%;
+  /*height: 500px;*/
+}
