@@ -12,12 +12,12 @@
 var lib;
 var gW = 160;
 var gH = 120;
-var margin = 20;
+var margin = 10;
 var tableMax = 1000;
 var tableCenter = 500;
 var typoSize = 24;
 var lineHeight = 24;
-var textTest = "On sait depuis longtemps que travailler avec du texte lisible et contenant du sens est source de distractions, et empêche de se concentrer sur la mise en page elle-même. L'avantage du Lorem Ipsum sur un texte générique comme 'Du texte. Du texte. Du texte.' est qu'il possède une distribution de lettres plus ou moins normale, et e n tout cas comparable avec celle du français standard. ";
+var textTest = "On sait depuis longtemps que travailler avec du texte lisible et contenant du sens est source de distractions, et empêche de se concentrer sur la mise en page elle-même. L'avantage du Lorem Ipsum sur un texte générique comme 'Du texte. Du texte. Du texte.' est qu'il possède une distribution de lettres plus ou moins normale, et en tout cas comparable avec celle du français standard. ";
 //textTest = "ss";
 //
 function MainInit() {
@@ -47,27 +47,23 @@ function LIB() {
 //
 LIB.prototype.setup = function() {
 	this.canvas = document.getElementById("LIBcanvas");
-	//
 	this.winW = parseInt(window.innerWidth);
 	this.winH = parseInt(window.innerHeight);
-	$(this.canvas).attr('width', this.winW);
-	$(this.canvas).attr('height', this.winH);
-	//
 	this.mouseActive = false;
 	this.pos = new VEC(0, 0);
 	this.oldMousePos = new VEC(0, 0);
 	this.MousePos = new VEC(0, 0);
 	this.MousePosMatrix = new VEC(0, 0);
+	$(this.canvas).attr('width', this.winW);
+	$(this.canvas).attr('height', this.winH);
 	this.ctx = this.canvas.getContext('2d');
-	this.upLeft = new VEC(0, 0);
-	this.downRight = new VEC(0, 0);
 	//
 	this.ctx.font = typoSize+"px font";
 	this.ctx.textBaseline = "top";
 	//
 	this.gH = 50;
 	this.gW = 50;
-	this.fps = 30;
+	this.fps = 60;
 	this.frames = new Array();
 	this.usedCases = new Array();
 	for(var i=0; i<tableMax; i++) {
@@ -80,7 +76,6 @@ LIB.prototype.setup = function() {
 }
 //
 LIB.prototype.click = function(mx, my) {
-	//alert(this.frames.length);
 	for(var i=0; i<this.frames.length; i++) {
 		this.frames[i].clickOver(this.MousePosMatrix.x, this.MousePosMatrix.y);
 	}
@@ -112,25 +107,14 @@ LIB.prototype.mouseMove = function(mx, my) {
 	this.MousePosMatrix.x = mx-this.winW/2-this.pos.x;
 	this.MousePosMatrix.y = my-this.winH/2-this.pos.y;
 	//
-	//$("#debug").html(this.MousePosMatrix.x+"  "+this.MousePosMatrix.y);
+	$("#debug").html(this.MousePosMatrix.x+"  "+this.MousePosMatrix.y);
 		for(var i=0; i<this.frames.length; i++) {
 			
 			this.frames[i].isOver(this.MousePosMatrix.x, this.MousePosMatrix.y);
 		}
 }
 LIB.prototype.update = function() {
-	this.winW = parseInt(window.innerWidth);
-	this.winH = parseInt(window.innerHeight);
-	$(this.canvas).attr('width', this.winW);
-	$(this.canvas).attr('height', this.winH);
-	this.ctx.font = typoSize+"px font";
-	//
-	this.upLeft.x = -this.pos.x-this.winW/6;
-	this.upLeft.y = -this.pos.y-this.winH/6;
-	this.downRight.x = -this.pos.x+this.winW/6;
-	this.downRight.y = -this.pos.y+this.winH/6;
-	//
-	$("#debug").html("<br/>"+this.upLeft.x+"  "+this.upLeft.y);
+	
 }
 //
 LIB.prototype.draw = function() {
@@ -140,14 +124,7 @@ LIB.prototype.draw = function() {
    	this.ctx.save();
 	this.ctx.translate(this.winW/2+this.pos.x, this.winH/2+this.pos.y);
 	for(var i=0; i<this.frames.length; i++) {
-		if(this.frames[i].ready) {
-			var c = this.frames[i].getCenterReal();
-			if(c.x>this.upLeft.x && c.x < this.downRight.x && c.y>this.upLeft.y && c.y < this.downRight.y) {
-		//var c = this.frames[i].getCenter();
-		//if(c.x>this.pos.x) {
-				this.frames[i].draw();
-			}
-		}
+		this.frames[i].draw();
 	}
    	this.ctx.restore();
    	// Debug
@@ -199,16 +176,23 @@ function FRAME(lib, vec) {
 	this.ready = false;
 	this.imageLoaded = false;
 	this.lib = lib;
-	this.ctx = this.lib.ctx;
 	this.parentPos = vec;
 	this.rects = new Array();
-	this.color = "white";
-	this.text = "";
 	this.setup();
 }
 FRAME.prototype.setup = function() {
-	var that = this;
-	getContent(that);
+	this.ctx = this.lib.ctx;
+	this.dim = new VEC(Math.round(Math.random()*3+1), Math.round(Math.random()*3+1));
+	//this.color = getRandomColor();
+	this.color = "black";
+	//
+	//if(this.parent != null) {
+		this.findAPlace();
+	/*} else {
+		// first one
+		this.pos = new VEC(0, 0);
+		this.blockCases();
+	}*/
 }
 FRAME.prototype.blockCases = function() {
 	for(var y=0; y<this.dim.y; y++) {
@@ -225,10 +209,7 @@ FRAME.prototype.blockCases = function() {
 	this.loadImage();
 }
 FRAME.prototype.giveContent = function(result) {
-	//alert(result[0].text);
-	this.text = result[0].text;
-	this.dim = new VEC(Math.round(Math.random()*3+1), Math.round(Math.random()*3+1));
-	this.findAPlace();
+	
 }
 FRAME.prototype.findAPlace = function() {
 	var rects = new Array();
@@ -284,7 +265,6 @@ FRAME.prototype.findAPlace = function() {
 	//this.pos = new VEC(thisRect.x, thisRect.y);
 	var rand = Math.floor(Math.random()*rects.length);
 	this.pos = new VEC(rects[rand].x, rects[rand].y);
-	//alert(this.pos.x+" "+this.pos.y);
 	this.blockCases();
 	//this.pos.x = rects[rand].x;
 	//this.pos.y = rects[rand].y;
@@ -300,24 +280,20 @@ FRAME.prototype.loadImage = function() {
 }
 FRAME.prototype.draw = function() {
 	this.ctx.fillStyle = this.color;
-	//if(this.ready) {
-		this.ctx.save();
-		this.ctx.translate(this.pos.x*gW, this.pos.y*gH);
+	if(this.ready) {
+   		this.ctx.save();
+   		this.ctx.translate(this.pos.x*gW, this.pos.y*gH);
 		this.ctx.fillRect(0, 0, this.dim.x*gW, this.dim.y*gH);
 		//this.ctx.drawImage(this.imageObj, 0, 0, this.dim.x*gW-margin, this.dim.y*gH-margin);
 		this.ctx.fillStyle = "black";
-		WrapText(this.ctx, this.text, margin, margin, this.dim.x*gW-margin, lineHeight);
+		WrapText(this.ctx, textTest, margin, margin, this.dim.x*gW-margin, lineHeight);
 		this.ctx.restore();
-	//}
+	}
 	//alert("imgloaded: "+this.imageLoaded);
 	
 }
 FRAME.prototype.getCenter = function() {
 	newVec = new VEC(this.pos.x+this.dim.x/2, this.pos.y+this.dim.y/2);
-	return newVec;
-}
-FRAME.prototype.getCenterReal = function() {
-	newVec = new VEC((this.pos.x+this.dim.x/2)*gW, (this.pos.y+this.dim.y/2)*gH);
 	return newVec;
 }
 FRAME.prototype.isOver = function(x, y) {
@@ -328,10 +304,8 @@ FRAME.prototype.isOver = function(x, y) {
 	}
 }
 FRAME.prototype.clickOver = function(x, y) {
-	//alert(this.pos.x+" "+this.pos.y);
 	if(x >= this.pos.x*gW && y >= this.pos.y*gH && x <= (this.pos.x+this.dim.x)*gW && y<= (this.pos.y+this.dim.y)*gH) {
 		//var that = this;
-		
 		this.lib.addFrame(this.pos);
 	}
 }

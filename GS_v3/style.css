@@ -6,3 +6,11 @@ body{
 }
 canvas {
 }
+#debug {
+	position: absolute;
+	color: white;
+	z-index: 1000;
+	left: 0px;
+	top: 0px;
+	background-color: black;
+}

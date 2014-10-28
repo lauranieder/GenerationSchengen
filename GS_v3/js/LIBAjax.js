@@ -9,16 +9,16 @@
 /////////////////
 
 // --------------- AJAX
-function getContent() {
+function getContent(frame) {
 	var jqxhrContent = $.ajax({
 		type: 'GET',
-		url: "../php/LIBReq.php",
+		url: "php/LIBReq.php",
 		data: {"action": "getText"},
 		//contentType: "application/json;charset=utf-8",
  		dataType: "json",
 	})
 	.done(function(result) {
-		alert(result);
+		frame.giveContent(result);
 	})
 	.fail(function() {
 		alert("fails");
